@@ -1,0 +1,148 @@
+html, body{
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.wrapper{
+    margin:30px;
+    min-height:100vh;
+    display:flex;
+    flex-direction: column;
+}
+.full-length{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+.naming{
+    display:flex;
+    width:1000px;
+    padding:10px;
+}
+#high_name{
+    padding-top:15px;
+    margin:0px 0px 0px 10px;
+}
+.nav{
+    display:flex;
+    background-color: rgb(213, 233, 250);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height:70px;
+}
+.navigations{
+    width:100%;
+    justify-content: flex-end;
+    margin-right:20px;
+}
+ul{
+    padding:10px;
+    display:flex;
+    justify-content: flex-end;
+    gap:30px;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color:rgb(94, 94, 100);
+}
+a:hover{
+    color:rgb(25, 25, 255);
+}
+.hero{
+    height: 100%;
+    border:2px solid black;
+    background-color: #f4fbff;
+}
+.main{
+    display:flex;
+    justify-content: center;;
+    align-items: center;
+    gap:20px;
+    flex-direction: column;
+}
+.btn{
+    width:350px;
+    height:100px;
+    border-radius:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+.btn:hover{
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.3s;
+    cursor: pointer;
+}
+#footer, #cpyrht{
+    margin:5px;
+    text-align: center;
+}
+footer{
+    background-color: rgb(213, 233, 250);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px; 
+    height:70px;
+    margin:0px;
+}
+.form_container{
+    height:100%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    background-color: #f4fbff;
+}
+.add_student_form{
+     box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 25px rgba(229, 9, 20, 0.15);
+    padding:40px;
+    display: flex;
+    flex-direction: column;
+    width:400px;
+    margin:20px;
+    border-radius: 20px;
+    background-color: white;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;   /* Forces vertical stacking */
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #1f2a44;
+}
+
+input, select {
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1.8px solid #cfd5e3;
+  border-radius: 10px;
+  outline: none;
+}
+
+input::placeholder {
+  color: #9aa1b2;
+}
+.sbtbtn{
+    width:400px;
+    height:45px;
+    border-radius:10px;
+    background-color: rgb(25, 0, 255);
+    border: none;
+    font-size:16px;
+    font-weight:normal;
+    color: white;
+}
+.sbtbtn:hover{
+    background-color: rgb(22, 22, 189);
+    cursor: pointer;
+}
