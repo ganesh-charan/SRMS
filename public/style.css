@@ -53,8 +53,11 @@ a:hover{
     color:rgb(25, 25, 255);
 }
 .hero{
+    flex:1;
     height: 100%;
-    border:2px solid black;
+    display:flex;
+    align-items:center;
+    justify-content: center;
     background-color: #f4fbff;
 }
 .main{
@@ -83,6 +86,10 @@ a:hover{
     text-align: center;
 }
 footer{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: rgb(213, 233, 250);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px; 
@@ -97,7 +104,7 @@ footer{
     background-color: #f4fbff;
 }
 .add_student_form{
-     box-shadow:
+    box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(255, 255, 255, 0.03),
     0 0 25px rgba(229, 9, 20, 0.15);
@@ -145,4 +152,64 @@ input::placeholder {
 .sbtbtn:hover{
     background-color: rgb(22, 22, 189);
     cursor: pointer;
+}
+.student_card{
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    width:300px;
+    border-radius: 20px;
+    background-color: white;
+    border:1px solid #cfd5e3;
+    width:220px;
+}
+.students_details{
+    margin:10px;
+    display: flex;
+    gap:10px;
+    flex-wrap: wrap;
+}
+p{
+    margin:0px;
+}
+.phone_year{
+    display:flex;
+    justify-content: space-between;
+}
+#name{
+    text-align: center;
+}
+.search_container{
+    flex:1;
+    height:100% ;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.search_box{
+    box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 25px rgba(229, 9, 20, 0.15);
+    border:none;
+    width:300px;
+    height:100px;
+    padding:50px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+}
+.search_item{
+    height: 15px;
+    width:270px;
+}
+#search{
+    height:30px;
+    background-color: rgb(25, 0, 255);;
+    margin-top:10px;
+    border:none;
+    border-radius: 6px;
+    color:white;
+    font-size:bold;
 }
