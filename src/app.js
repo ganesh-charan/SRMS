@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import env from "dotenv";
+
 
 import { sessionmiddleware } from "./modules/config/session.js";
 import "./modules/config/passport.js";
@@ -15,7 +15,7 @@ import studentRoutes from "./modules/students/students.routes.js";
 import adminRoutes from "./modules/admin/admin.routes.js";
 import teacherRoutes from "./modules/teacher/teacher.routes.js";
 
-env.config();
+
 const app = express();
 
 /* ---------- core ---------- */
