@@ -10,7 +10,9 @@ router.get("/studentHome/:id",isAuthenticated,RBAC(["student"]),controller.rende
 router.get('/addStudent',isAuthenticated,RBAC(["admin", "teacher"]),csrfProtection,controller.addStudent);
 router.get('/searchStudent',isAuthenticated,RBAC(["admin", "teacher"]),csrfProtection,controller.searchStudent);
 router.get('/deleteStudent',isAuthenticated,RBAC(["admin"]),csrfProtection,controller.deleteStudent);
-router.get('/displaystudents',isAuthenticated,RBAC(["admin", "teacher"]),controller.displayStudents);
+router.get('/editStudent/:id',isAuthenticated,RBAC(["admin", "teacher"]),csrfProtection,controller.editStudent);
+router.post('/editStudent/:id',isAuthenticated,RBAC(["admin", "teacher"]),csrfProtection,controller.postEditStudent);
+router.get('/displayStudents',isAuthenticated,RBAC(["admin", "teacher"]),controller.displayStudents);
 router.post('/addStudent',isAuthenticated,RBAC(["admin", "teacher"]),csrfProtection,controller.postaddstudent);
 router.post('/searchStudent',isAuthenticated,RBAC(["admin", "teacher"]),csrfProtection,controller.postSearchStudent);
 router.post('/deleteStudent/:search_id',isAuthenticated,RBAC(["admin"]),csrfProtection,controller.postdeletestudent);

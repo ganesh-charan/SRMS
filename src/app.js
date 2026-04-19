@@ -14,6 +14,9 @@ import authRoutes from "./modules/auth/auth.routes.js";
 import studentRoutes from "./modules/students/students.routes.js";
 import adminRoutes from "./modules/admin/admin.routes.js";
 import teacherRoutes from "./modules/teacher/teacher.routes.js";
+import coursesRoutes from "./modules/courses/courses.routes.js";
+import enrollmentsRoutes from "./modules/enrollments/enrollments.routes.js";
+import manageRoutes from "./modules/manage/manage.routes.js";
 
 
 const app = express();
@@ -48,6 +51,9 @@ app.use("/", authRoutes);
 app.use("/", adminRoutes);
 app.use("/", teacherRoutes);
 app.use("/students", studentRoutes);
+app.use("/courses", coursesRoutes);
+app.use("/enrollments", enrollmentsRoutes);
+app.use("/manage", manageRoutes);
 
 /* ---------- csrf error ---------- */
 app.use((err, req, res, next) => {

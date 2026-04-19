@@ -1,10 +1,12 @@
-import {student} from "../../database/student.js";
-export  const insertAuth=(authCredentials)=>{
+import { pool } from "../../database/db.js";
 
-  student.push({
-    id:authCredentials.id,
-    username:authCredentials.username,
-    password:authCredentials.password,
-    role:'student'
-  })
-}
+export const insertAuth = async (authCredentials, connection = pool) => {
+  const { name, email, password, role = "student" } = authCredentials;
+
+  const [result] = await connection.query(
+    "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)",
+    [name, email, password, role]
+  );
+
+  return result;
+};

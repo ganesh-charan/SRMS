@@ -1,56 +1,67 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import bcrypt from "bcrypt";
-import {user} from "../../database/user.js"
-import {student} from "../../database/student.js"
-import {teacher} from "../../database/teacher.js"
+import { pool } from "../../database/db.js";
 
 passport.use(
   "local",
-  new Strategy((username, password, cb) => {
+  new Strategy({ usernameField: 'email' }, async (email, password, cb) => {
     try {
-      let foundUser = user.find(u => u.username === username);
+      // 1. Try direct email match
+      let [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+      let user = rows.length > 0 ? rows[0] : null;
 
-      if (!foundUser) {
-        foundUser = student.find(u => u.username === username);
+      if (!user) {
+        // 2. Try phone@srms.edu format (student login uses phone number as username)
+        const phoneEmail = `${String(email).trim()}@srms.edu`;
+        const [phoneRows] = await pool.query('SELECT * FROM users WHERE email = ?', [phoneEmail]);
+        if (phoneRows.length > 0) {
+          user = phoneRows[0];
+        }
       }
 
-      if (!foundUser) {
-        foundUser = teacher.find(u => u.username === username);
+      if (!user) {
+        // 3. Try raw phone_no in students table as last resort
+        const [studentRows] = await pool.query('SELECT user_id FROM students WHERE phone_no = ?', [email]);
+        if (studentRows.length > 0) {
+          const [userRows] = await pool.query('SELECT * FROM users WHERE user_id = ?', [studentRows[0].user_id]);
+          if (userRows.length > 0) {
+            user = userRows[0];
+          }
+        }
       }
 
-      if (!foundUser) {
-        return cb(null, false);
+      if (!user) {
+        return cb(null, false, { message: 'User not found' });
       }
 
-      bcrypt.compare(password, foundUser.password, (err, valid) => {
-        if (err) return cb(err);
-        if (!valid) return cb(null, false);
-        return cb(null, foundUser);
-      });
+      let match = false;
+      if (user.password.startsWith('$2b$')) {
+        match = await bcrypt.compare(password, user.password);
+      } else {
+        match = (password === user.password);
+      }
+      if (!match) {
+        return cb(null, false, { message: 'Incorrect password' });
+      }
+      return cb(null, user);
     } catch (err) {
       return cb(err);
     }
   })
 );
 
-
 passport.serializeUser((user, cb) => {
-  cb(null, { id: user.id, role: user.role });
+  cb(null, { user_id: user.user_id, role: user.role });
 });
 
-passport.deserializeUser((payload, cb) => {
+passport.deserializeUser(async (payload, cb) => {
   try {
-    if (payload.role === "admin") {
-      return cb(null, user.find(u => u.id === payload.id));
+    const [rows] = await pool.query('SELECT * FROM users WHERE user_id = ?', [payload.user_id]);
+    if (rows.length === 0) {
+      return cb(null, false);
     }
-    if (payload.role === "student") {
-      return cb(null, student.find(u => u.id === payload.id));
-    }
-    if (payload.role === "teacher") {
-      return cb(null, teacher.find(u => u.id === payload.id));
-    }
-    return cb(null, false);
+    return cb(null, rows[0]);
   } catch (err) {
     return cb(err);
   }
